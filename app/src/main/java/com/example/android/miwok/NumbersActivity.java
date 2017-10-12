@@ -17,9 +17,7 @@ package com.example.android.miwok;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -31,39 +29,25 @@ public class NumbersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_numbers);
 
     //Create an ArrayList of words in the NumbersActivity
-    ArrayList <String> words = new ArrayList<String>();
-    words.add ("one");
-    words.add ("two");
-    words.add ("three");
-    words.add ("four");
-    words.add ("five");
-    words.add ("six");
-    words.add ("seven");
-    words.add ("eigth");
-    words.add ("nine");
-    words.add ("ten");
-        LinearLayout rootView = (LinearLayout)findViewById(R.id.rootView);
+    ArrayList <Word> words = new ArrayList<Word>();
+    words.add (new Word ("one","lutti"));
+    words.add (new Word ("two","otiiko"));
+    words.add (new Word ("three","tolookosu"));
+    words.add (new Word ("four","oyyisa"));
+    words.add (new Word ("five","massokka"));
+    words.add (new Word ("six","temmokka"));
+    words.add (new Word ("seven","kenekaku"));
+    words.add (new Word ("eight","kawinta"));
+    words.add (new Word ("nine","wo'e"));
+    words.add (new Word ("ten","na'aacha"));
 
-        /*Create a counter variable to keep track of the index position
-        int i = 0;
-        while (i<words.size()){
-            //Create a new TextView
-            TextView wordView = new TextView (this);
-            wordView.setText(words.get(i));
-            //Add the TextView as a child to the
-            rootView.addView(wordView);
-            //update counter
-            i++;
-        }*/
+        //Create a Wordadapter, whose data source is a the list of numbers (words)
+        //Adapter knows how to create list item views for each item in the list.
+        WordAdapter adapter = new WordAdapter (this, words);
 
-        for (int index=0;index<words.size();index++ ){
-            TextView wordView = new TextView (this);
-
-            wordView.setText(words.get(index));
-            //Add the TextView as a child to the rootView
-            rootView.addView(wordView);
-            Log.v("NumbersActivity", "The wors is " + words.get(index));
-        }
+        //get a reference to the ListView and attach adapter to the ListView
+        ListView listView = (ListView) findViewById(R.id.list);
+        listView.setAdapter(adapter);
 
 
 
