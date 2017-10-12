@@ -29,16 +29,16 @@ public class FamilyActivity extends AppCompatActivity {
         setContentView(R.layout.word_list);
         //Create an ArrayList of words in the NumbersActivity
         ArrayList<Word> words = new ArrayList<Word>();
-        words.add (new Word ("one","lutti"));
-        words.add (new Word ("two","otiiko"));
-        words.add (new Word ("three","tolookosu"));
-        words.add (new Word ("four","oyyisa"));
-        words.add (new Word ("five","massokka"));
-        words.add (new Word ("six","temmokka"));
-        words.add (new Word ("seven","kenekaku"));
-        words.add (new Word ("eight","kawinta"));
-        words.add (new Word ("nine","wo'e"));
-        words.add (new Word ("ten","na'aacha"));
+        words.add (new Word ("father","әpә"));
+        words.add (new Word ("mother","әṭa"));
+        words.add (new Word ("son","angsi"));
+        words.add (new Word ("daughter","tune"));
+        words.add (new Word ("older brother","taachi"));
+        words.add (new Word ("younger brother","chalitti"));
+        words.add (new Word ("older sister","teṭe"));
+        words.add (new Word ("younger sister","kolliti"));
+        words.add (new Word ("grandmother","ama"));
+        words.add (new Word ("grandfather","paapa"));
 
         //Create a Wordadapter, whose data source is a the list of numbers (words)
         //Adapter knows how to create list item views for each item in the list.

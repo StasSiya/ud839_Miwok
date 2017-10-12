@@ -30,16 +30,15 @@ public class ColorsActivity extends AppCompatActivity {
 
         //Create an ArrayList of words in the NumbersActivity
         ArrayList<Word> words = new ArrayList<Word>();
-        words.add (new Word ("one","lutti"));
-        words.add (new Word ("two","otiiko"));
-        words.add (new Word ("three","tolookosu"));
-        words.add (new Word ("four","oyyisa"));
-        words.add (new Word ("five","massokka"));
-        words.add (new Word ("six","temmokka"));
-        words.add (new Word ("seven","kenekaku"));
-        words.add (new Word ("eight","kawinta"));
-        words.add (new Word ("nine","wo'e"));
-        words.add (new Word ("ten","na'aacha"));
+        words.add (new Word ("red", "wetetti"));
+        words.add (new Word ("green","chokokki"));
+        words.add (new Word ("brown","ṭakaakki"));
+        words.add (new Word ("gray","ṭopoppi"));
+        words.add (new Word ("black","kululli"));
+        words.add (new Word ("white","kelelli"));
+        words.add (new Word ("dusty yellow","ṭopiisә"));
+        words.add (new Word ("mustard yellow","chiwiiṭә"));
+
 
         //Create a Wordadapter, whose data source is a the list of numbers (words)
         //Adapter knows how to create list item views for each item in the list.
