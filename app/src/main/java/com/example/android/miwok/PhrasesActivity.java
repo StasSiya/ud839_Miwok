@@ -43,7 +43,7 @@ public class PhrasesActivity extends AppCompatActivity {
 
         //Create a Wordadapter, whose data source is a the list of numbers (words)
         //Adapter knows how to create list item views for each item in the list.
-        WordAdapter adapter = new WordAdapter (this, words);
+        WordAdapter adapter = new WordAdapter (this, words, R.color.category_phrases);
 
         //get a reference to the ListView and attach adapter to the ListView
         ListView listView = (ListView) findViewById(R.id.list);
