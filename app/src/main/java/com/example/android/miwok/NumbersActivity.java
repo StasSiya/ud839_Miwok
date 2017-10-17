@@ -15,6 +15,8 @@
  */
 package com.example.android.miwok;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 public class NumbersActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
+    private AudioManager mAudioManager;
 
     private MediaPlayer.OnCompletionListener mComplitionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -36,12 +39,28 @@ public class NumbersActivity extends AppCompatActivity {
         }
     };
 
+    private AudioManager.OnAudioFocusChangeListener mChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        @Override
+        public void onAudioFocusChange(int focusChange) {
+
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                    focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK){
+                mMediaPlayer.pause (); //pause playback
+                mMediaPlayer.seekTo(0); //reset player to te start of the file
+            } else if (focusChange == AudioManager.AUDIOFOCUS_LOSS){
+                releaseMediaPlayer();
+            }else if (focusChange == AudioManager.AUDIOFOCUS_GAIN){
+                mMediaPlayer.start();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
 
-
+        mAudioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
         //Create an ArrayList of words in the NumbersActivity
         final ArrayList<Word> words = new ArrayList<Word>();
         words.add(new Word("one", "lutti", R.drawable.number_one, R.raw.number_one));
@@ -74,15 +93,14 @@ public class NumbersActivity extends AppCompatActivity {
                 //Release media player if it currently exists because we are about to play
                 // a different sound file.
                 releaseMediaPlayer();
-                mMediaPlayer = MediaPlayer.create(NumbersActivity.this, currentWord.getAudioRessourceId());
-                mMediaPlayer.start();
+                int result = mAudioManager.requestAudioFocus(mChangeListener, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
-                //Setip a listener on the media player, so that we can stop and release the media
-                //player once the sound has finished playing
-                mMediaPlayer.setOnCompletionListener(mComplitionListener);
+                if (result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
 
-
-
+                    mMediaPlayer = MediaPlayer.create(NumbersActivity.this, currentWord.getAudioRessourceId());
+                    mMediaPlayer.start();
+                    mMediaPlayer.setOnCompletionListener(mComplitionListener);
+                }
 
 
             }
@@ -107,6 +125,7 @@ public class NumbersActivity extends AppCompatActivity {
                 // setting the media player to null is an easy way to tell that the media player
                 // is not configured to play an audio file at the moment.
                 mMediaPlayer = null;
+                mAudioManager.abandonAudioFocus(mChangeListener);
             }
         }
     }
